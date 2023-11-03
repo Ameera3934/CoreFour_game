@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour
         Vector3 shootDirection = (target.position - transform.position).normalized;
         GetComponent<Rigidbody>().AddForce(shootDirection * Force + new Vector3(0, 3f, 0), ForceMode.Impulse);
 
-        StartCoroutine(ResetBallAfterDelay(1f));
+        StartCoroutine(ResetBallAfterDelay(0.5f));
     }
 
     IEnumerator ResetBallAfterDelay(float delay)
