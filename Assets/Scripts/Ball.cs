@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro; // Required for UI elements
 
 public class Ball : MonoBehaviour
@@ -13,6 +14,7 @@ public class Ball : MonoBehaviour
     private Vector3 initialPosition;
     private float gameDuration = 30f; // Duration of the game in seconds
     private float timeLeft; // Time remaining in the game
+    public Slider forceUI;
     private bool isGameOver = false;
 
     void Start()
@@ -41,18 +43,36 @@ public class Ball : MonoBehaviour
             }
 
             UpdateTimerText(); // Update the timer text
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
+            {   Force++;
+                Slider();
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
             {
                 Shoot();
+                StartCoroutine(Wait());
             }
         }
+    }
+    public void Slider()
+    {
+        forceUI.value = Force;
+    }
+    public void ResetGauge()
+    {
+        Force = 0;
+        forceUI.value = 0;
+    }
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.5f);
+        ResetGauge();
     }
 
     void Shoot()
     {
-        Vector3 shootDirection = (target.position - transform.position).normalized;
-        GetComponent<Rigidbody>().AddForce(shootDirection * Force + new Vector3(0, 3f, 0), ForceMode.Impulse);
+        Vector3 Shoot = (target.position - this.transform.position).normalized;
+        GetComponent<Rigidbody>().AddForce(Shoot * Force, ForceMode.Impulse);
 
         StartCoroutine(ResetBallAfterDelay(0.5f));
     }
