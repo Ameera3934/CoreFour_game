@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     public CanvasGroup OptionPanel;
+  
 
     public void PlayGame()
     {
@@ -17,6 +18,15 @@ public class MainMenuController : MonoBehaviour
     {
         OptionPanel.alpha = 1;
         OptionPanel.blocksRaycasts = true;
+
+    }
+
+    public void Instructions()
+    {
+        OptionPanel.alpha = 1;
+        OptionPanel.blocksRaycasts = true;
+
+       
 
     }
 
